@@ -17,6 +17,10 @@ def get_user_by_id(user_id):
     """Gets user by id"""
     return User.query.get(user_id)
 
+def get_user_by_email(email):
+    """Gets a user object from database via email and returns"""
+    return User.query.filter_by(email=email).first()
+
 def create_movie(title, overview, release_date, poster_path):
     """Creates a new movie object and returns it"""
     new_movie = Movie(title=title, overview=overview, release_date=release_date, poster_path=poster_path)
