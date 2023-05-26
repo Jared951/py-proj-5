@@ -7,6 +7,8 @@
 {% block body %}
 <a href="/">Home</a>
     <h1>{{ movie.title }}</h1>
+
+    {% if "user_email" in session %}
     <div>
         <h3>Rating</h3>
             <form action="/rating/{{ movie.movie_id }}" method="POST">
@@ -20,9 +22,12 @@
                 <label for="4">4</label>
                 <input type="radio" id="5" name="rating" value="5">
                 <label for="5">5</label>
+                <br>
                 <button type="submit">Rate {{ movie.title }}</button>
             </form>
     </div>
+    {% endif %}
+
     <p>{{ movie.overview }}</p>
     <img width="250px" src="{{ movie.poster_path }}">
 {% endblock %}

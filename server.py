@@ -76,6 +76,20 @@ def login():
 
     return redirect("/")
 
+@app.route("/rating/<movie_id>", methods=["POST"])
+def rate_movie(movie_id):
+    """Allows user to rate a movie"""
+    user = crud.get_user_by_email(session["user_email"])
+    movie = crud.get_movie_by_id(movie_id)
+
+    score = int(request.form["rating"])
+
+    new_rating = crud.create_rating(user, movie, score)
+    db.session.add(new_rating)
+    db.session.commit()
+
+    return redirect(f"/movies/{movie.movie_id}")
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True)
